@@ -1,0 +1,65 @@
+### Главная
+GET http://localhost:8080/
+
+### Регистрация обычного пользователя
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "login": "artem",
+  "password": "123456"
+}
+
+### Вход USER
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "login": "artem",
+  "password": "123456"
+}
+
+### Вход ADMIN (по умолчанию admin / admin123)
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "login": "admin",
+  "password": "admin123"
+}
+
+### Все задачи
+GET http://localhost:8080/tasks
+
+### Создать задачу - вставь USER_TOKEN
+POST http://localhost:8080/tasks
+Authorization: Bearer USER_TOKEN
+Content-Type: application/json
+
+{
+  "title": "Новая задача",
+  "description": "Проверка финального проекта",
+  "done": false
+}
+
+### Изменить задачу - USER может менять свою
+PUT http://localhost:8080/tasks/1
+Authorization: Bearer USER_TOKEN
+Content-Type: application/json
+
+{
+  "title": "Обновленная задача",
+  "description": "Проверка PUT",
+  "done": true
+}
+
+### Удалить задачу - только ADMIN
+DELETE http://localhost:8080/tasks/1
+Authorization: Bearer ADMIN_TOKEN
+
+### Список пользователей - только ADMIN
+GET http://localhost:8080/admin/users
+Authorization: Bearer ADMIN_TOKEN
+
+### WebSocket в IntelliJ HTTP Client
+WEBSOCKET ws://localhost:8080/ws/tasks
